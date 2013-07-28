@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SMSCloudBackup</string>
+    <string name="app_name">"SMS Cloud Backup"</string>
+    <string name="backup">"Backup"</string>
+    <string name="restore">"Restore"</string>
+    <string name="link_dbx_account_failed">"Dude, I need you to login!!!"</string>
+    <string name="no_pending_action_after_linking">"Weird, the app forgot what you wanted to do before linking your DropBox account. Let's try again."</string>
 </resources>
