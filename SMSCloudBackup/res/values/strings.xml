@@ -5,4 +5,6 @@
     <string name="restore">"Restore"</string>
     <string name="link_dbx_account_failed">"Dude, I need you to login!!!"</string>
     <string name="no_pending_action_after_linking">"Weird, the app forgot what you wanted to do before linking your DropBox account. Let's try again."</string>
+    <string name="backing_up">"Backing up…"</string>
+    <string name="restoring">"Restoring…"</string>
 </resources>

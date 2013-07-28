@@ -3,7 +3,6 @@ package org.nguyenhuy.smscloudbackup;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import com.dropbox.sync.android.DbxAccountManager;
@@ -40,8 +39,8 @@ public class MainActivity extends Activity {
 
         mDbxAccountManager = DbxAccountManager.getInstance(
                 getApplicationContext(),
-                getString(R.string.dropbox_api_key),
-                getString(R.string.dropbox_api_secret));
+                getString(R.string.dbx_api_key),
+                getString(R.string.dbx_api_secret));
 
         if (savedInstanceState != null) {
             mPendingAction = savedInstanceState.getInt(EXTRA_PENDING_ACTION);
@@ -53,9 +52,9 @@ public class MainActivity extends Activity {
         if (requestCode == REQUEST_LINK_TO_DBX) {
             if (resultCode == RESULT_OK) {
                 if (mPendingAction == PENDING_ACTION_BACKUP) {
-                    writeDataToFile();
+                    startBackupService();
                 } else if (mPendingAction == PENDING_ACTION_RESTORE) {
-                    readDataFromFile();
+                    startRestoreService();
                 } else {
                     Toast.makeText(
                             this,
@@ -81,7 +80,7 @@ public class MainActivity extends Activity {
 
     private void backup() {
         if (mDbxAccountManager.hasLinkedAccount()) {
-            writeDataToFile();
+            startBackupService();
         } else {
             // link to user's account. onActivityResult() will be called when
             // linking complete.
@@ -92,7 +91,7 @@ public class MainActivity extends Activity {
 
     private void restore() {
         if (mDbxAccountManager.hasLinkedAccount()) {
-            readDataFromFile();
+            startRestoreService();
         } else {
             // link to user's account. onActivityResult() will be called when
             // linking complete.
@@ -101,11 +100,15 @@ public class MainActivity extends Activity {
         }
     }
 
-    private void writeDataToFile() {
-        Log.v("HUY", "Write to file.");
+    private void startBackupService() {
+        Intent i = new Intent(this, WorkerService.class);
+        i.putExtra(WorkerService.EXTRA_OPERATION, WorkerService.OPERATION_BACKUP);
+        startService(i);
     }
 
-    private void readDataFromFile() {
-        Log.v("HUY", "Read from file.");
+    private void startRestoreService() {
+        Intent i = new Intent(this, WorkerService.class);
+        i.putExtra(WorkerService.EXTRA_OPERATION, WorkerService.OPERATION_RESTORE);
+        startService(i);
     }
 }
