@@ -1,0 +1,16 @@
+*.DS_Store
+*.class
+*.classpath
+*.dex
+*.eml
+*.project
+*.swp
+.idea/
+.metadata
+bin/
+gen/
+out/
+local.properties
+*/proguard_logs/dump.txt
+*/proguard_logs/seeds.txt
+*/proguard_logs/usage.txt
